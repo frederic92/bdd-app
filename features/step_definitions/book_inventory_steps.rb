@@ -1,7 +1,16 @@
 Given("I have populated my inventory with several books") do
-  pending # Write code here that turns the phrase above into concrete actions
+  FactoryBot.create(:book,
+                    user: @registered_user,
+                    name: "Don Quixote",
+                    author: "Miguel de Cervantes")
+
+  FactoryBot.create(:book,
+                    user: @registered_user,
+                    name: "Moby Dick",
+                    author: "Herman Melville")
 end
 
 Then("I should see the list of my books") do
-  pending # Write code here that turns the phrase above into concrete actions
+  expect(page).to have_content("Don Quixote")
+  expect(page).to have_content("Moby Dick")
 end
