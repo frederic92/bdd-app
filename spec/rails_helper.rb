@@ -34,10 +34,12 @@ RSpec.configure do |config|
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
   # instead of true.
-  config.use_transactional_fixtures = false
+  config.use_transactional_fixtures = true
 
   config.include Warden::Test::Helpers
-  config.include Devise::Test::ControllerHelpers
+  config.include Devise::Test::IntegrationHelpers
+  config.include Devise::Test::ControllerHelpers, type: :controller
+
 
 
   # RSpec Rails can automatically mix in different behaviours to your tests
@@ -77,16 +79,17 @@ RSpec.configure do |config|
     DatabaseCleaner.clean
   end
 
-end
 
-Shoulda::Matchers.configure do |config|
-  config.integrate do |with|
-    with.test_framework :rspec
+  Shoulda::Matchers.configure do |config|
+    config.integrate do |with|
+      with.test_framework :rspec
 
-    with.library :active_record
-    with.library :active_model
-    with.library :action_controller
-    with.library :rails
+      with.library :active_record
+      with.library :active_model
+      with.library :action_controller
+      with.library :rails
 
+    end
   end
+
 end
